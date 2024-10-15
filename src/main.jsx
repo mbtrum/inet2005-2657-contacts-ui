@@ -7,6 +7,8 @@ import Read from './routes/Read'
 import Update from './routes/Update'
 import Delete from './routes/Delete'
 import './index.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const router = createBrowserRouter([
   {

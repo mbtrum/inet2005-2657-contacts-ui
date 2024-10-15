@@ -5,10 +5,12 @@ export default function Home() {
     // Store the result from API
     const [contacts, setContacts] = useState([]);
 
+    const apiUrl = import.meta.env.VITE_API_HOST;
+
     useEffect(() => {
       // Fetch data from API
       async function fetchData() {
-        const url = 'http://localhost:3000/api/contacts/all';      
+        const url = apiUrl + '/api/contacts/all';      
         const response = await fetch(url);
         if(response.ok){ 
           const data = await response.json();
@@ -29,15 +31,18 @@ export default function Home() {
 
   return (
     <>
-      <h1>Home Page</h1>
+      <h1>My Contacts</h1>
       <p>
-        <Link to="/create">Add a Contact</Link>
+        <Link to="/create" className="btn btn-outline-secondary">Add a Contact</Link>
       </p>
       {
         contacts.length > 0 ?         
-        contacts.map((contact, index) => {
-          return <div key={index}>{ contact.firstName + ' ' + contact.lastName }</div>
-        }) :
+        contacts.map((contact, index) => (
+          <div key={index}>
+            { contact.filename ? <img src={`${apiUrl}/images/${contact.filename}`} className="thumbnail"/> : <span>no image</span> }
+            { contact.firstName + ' ' + contact.lastName } <Link to={`/update/${contact.id}`}>Update</Link> <Link to={`/delete/${contact.id}`}>Delete</Link>
+          </div>
+        )) :
         <div>No contacts.</div>
       }
     </>
