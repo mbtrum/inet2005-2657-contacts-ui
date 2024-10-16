@@ -38,12 +38,25 @@ export default function Home() {
       {
         contacts.length > 0 ?         
         contacts.map((contact, index) => (
-          <div key={index}>
-            { contact.filename ? <img src={`${apiUrl}/images/${contact.filename}`} className="thumbnail"/> : <span>no image</span> }
-            { contact.firstName + ' ' + contact.lastName } <Link to={`/update/${contact.id}`}>Update</Link> <Link to={`/delete/${contact.id}`}>Delete</Link>
+          <div key={index} className="card mb-3">
+            <div className="card-body">
+              <div className="d-flex align-items-center position-relative">
+                <img src={`${apiUrl}/images/${contact.filename}`} className="thumbnail"/>
+
+                <div className="contact-info">
+                  <h5 className="card-title">{ contact.firstName + ' ' + contact.lastName }</h5>
+                  <p className="card-text">{ contact.phone }<br />{ contact.email }</p>
+                </div>
+
+                <div className="position-absolute top-0 end-0">
+                  <Link to={`/update/${contact.id}`} className="btn btn-light btn-sm"><i className="bi bi-pencil-square"></i></Link>&nbsp;              
+                  <Link to={`/delete/${contact.id}`} className="btn btn-light btn-sm"><i className="bi bi-trash"></i></Link>
+                </div>
+              </div>
+            </div>            
           </div>
         )) :
-        <div>No contacts.</div>
+        <p>No contacts.</p>
       }
     </>
   )
